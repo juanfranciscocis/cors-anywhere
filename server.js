@@ -49,10 +49,18 @@ cors_proxy.createServer({
 }).listen(port, host, function() {
   console.log('Running CORS Anywhere on ' + host + ':' + port);
   // Make an API call after the server starts using request module
-  var request = require('request');
-    request('https://devprobeapi.onrender.com', function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('body:', body); // Print the HTML for the Google homepage.
-    });
+  reloadWebsite();
 });
+
+var url = 'https://cors-ea3m.onrender.com/'; // Replace with your Render URL
+var interval = 30000; // Interval in milliseconds (30 seconds)
+
+function reloadWebsite() {
+  var request = require('request');
+  request('https://cors-ea3m.onrender.com/', function (error, response, body) {
+    console.log('error:', error); // Print the error if one occurred
+    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    console.log('body:', body); // Print the HTML for the Google homepage.
+  });
+  setInterval(reloadWebsite, interval);
+}
